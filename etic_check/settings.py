@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'etic-check.onrender.com',
 ]
+CSRF_TRUSTED_ORIGINS = [
+    "etic-check.onrender.com",
+]
 
 
 # Application definition
