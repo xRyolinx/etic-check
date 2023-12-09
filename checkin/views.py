@@ -99,12 +99,20 @@ def add_event(request):
             
             # error in excel
             if ((not name) or (not prenom)):
-                # delete event
-                event.delete()
-                
-                return JsonResponse({
-                "status" : "ERROR"
-            })
+                # if at the end
+                if ((not name) and (not prenom)):
+                    break
+                else:
+                    # delete event
+                    event.delete()
+                    
+                    return JsonResponse({
+                        "status" : "ERROR"
+                    })
+            
+            # arranger la capitalisation
+            name = name.lower().capitalize()
+            prenom = prenom.lower().capitalize()
                 
             # inscrit l'eleve
             particip = Participant(nom=name, prenom=prenom, event=event)

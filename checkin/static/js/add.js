@@ -123,6 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // add data
         let data = new FormData();
         inputs.forEach(input => {
+            if (input.name == 'lien')
+            {
+                input.value = input.value.toLowerCase();
+            }
             if (input.name == 'excel')
             {
                 data.append(input.name, input.files[0]);
