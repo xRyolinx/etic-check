@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <script src="{% static 'js/add.js' %}"></script>
+    <title>Add</title>
+</head>
+<body>
+    <header class="heady">
+        <p class="etic">ETIC</p>
+        <h1>
+            <span class="check">Check</span><span class="in">In</span>
+        </h1>
+    </header>
+
+    <div class="add-event">
+        <!-- add event title -->
+        <div class="add-txt">
+            <p>Add Event</p>
+        </div>
+        
+        <!-- event name -->
+        <div>
+            <p class="event-name">Event name</p>
+            <input name="nom" type="text" autocomplete="off" placeholder="Training Camp" class="id1">
+        </div>
+        
+        <!-- event lien -->
+        <div>
+            <p class="event-name">Abridged name</p>
+            <input name="lien" type="text" autocomplete="off" placeholder="TCX" class="id1">
+        </div>
+
+        <!-- event colors -->
+        <div class="color-inputs">
+            <div class="color-input">
+                <p>Primary color</p>
+                <div class="input-container">
+                    <input name="cp" autocomplete="off" type="text" placeholder="#F26414" class="id2">
+                    <div class="color1"></div>
+                </div>
+            </div>
+            <div class="color-input">
+                <p>Secondary color</p>
+                <div class="input-container">
+                    <input name="cs" autocomplete="off" type="text" placeholder="#413492" class="id2">
+                    <div class="color2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- excel -->
+        <div>
+            <p class="event-name">Excel file</p>
+            <div id="excel" class="id1">Insérer votre fichier excel</div>
+            <input id="excel-file" type="file" name="excel" hidden>
+        </div>
+
+        {% csrf_token %}
+        
+        <!-- buttons -->
+        <div id="button-container">
+            <button id="annuler"
+            onclick="window.location.pathname = `{% url 'checkin:events' %}`;">Annuler</button>
+            <button id="confirmer">Confirmer</button>
+        </div>
+    </div>
+</body>
+</html>

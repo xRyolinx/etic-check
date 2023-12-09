@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure--ei$cg)v2dr2x$%d9cm5v*(azrku3b5kak%7e)ji9)zi__dtog
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     'etic-check.onrender.com',
 ]
 CSRF_TRUSTED_ORIGINS = [

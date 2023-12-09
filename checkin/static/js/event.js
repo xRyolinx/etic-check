@@ -24,10 +24,10 @@ async function fetch_participants() {
     // get path
     let path = window.location.pathname;
     path = path.split('/');
-    path = path[path.length - 1];
+    path = path[path.length - 2];
 
     // fetch
-    let result = await fetch('/events/api/' + path, {
+    let result = await fetch('/events/api/' + path + '/', {
         method: "POST",
         headers: {
             "X-CSRFToken": getCookie("csrftoken"),
@@ -48,7 +48,6 @@ async function update_presence(participants) {
         // vars
         let presence = new_participants[i].present;
         let span = participants[i].node.children[2].children[0];
-        console.log(span);
         // if update
         if (participants[i].present != presence)
         {
@@ -112,10 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 // get path
                 let path = window.location.pathname;
                 path = path.split('/');
-                path = path[path.length - 1];
+                path = path[path.length - 2];
 
                 // send
-                fetch('/events/api/presence/' + path, {
+                fetch('/events/api/presence/' + path + '/', {
                     method: "POST",
                     body: data,
                     headers: {

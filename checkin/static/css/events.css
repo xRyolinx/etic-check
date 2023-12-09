@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --beige: #F0EAD6;
+    --orange: #EA9023;
+}
+
+body {
+    margin: 0;
+    background-color: var(--beige);
+}
+
+header {
+    padding: 20px 20px;
+    /* margin-bottom: 50px; */
+    /* background-color: blue; */
+}
+
+#etic {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+
+    color: black;
+
+    margin: 0;
+    /* background-color: blue; */
+}
+
+#checkin {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+
+    margin: 0;
+
+    /* background-color: violet; */
+}
+
+#check {
+    color: red;
+}
+#in {
+    color: green;
+}
+
+
+#our-events {
+    margin: 0;
+    padding: 30px 20px;
+    padding-bottom: 20px;
+
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+
+    /* background-color: green; */
+}
+
+#events {
+    /* background-color: blue; */
+    padding: 1px 20px;
+}
+
+.event {
+    width: 100%;
+    max-width: 600px;
+
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    margin: 30px auto;
+
+    /* background-color: green; */
+}
+
+.event-txt {
+    flex-grow: 1;
+    border-radius: 10px;
+    padding: 15px 40px;
+    background-color: var(--orange);
+
+    cursor: pointer;
+}
+
+.event-txt p {
+    margin: 0;
+
+    font-size: 18px;
+    color: white;
+}
+
+.event-button {
+    height: 50px;
+    aspect-ratio: 1;
+
+    margin-left: 30px;
+    padding: 6px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    background-color: var(--orange);
+}
+
+.event-button svg {
+    height: 100%;
+}
+
+#button-container {
+    width: 100%;
+    /* background-color: red; */
+    padding: 10px 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#add, #logout {
+    display: block;
+    padding: 10px 30px;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    
+    border: none;
+    border-radius: 10px;
+    
+    background-color: #2E9456;
+
+    cursor: pointer;
+}
+
+#logout {
+    margin-right: 30px;
+    background-color: red;
+}

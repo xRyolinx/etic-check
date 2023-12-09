@@ -4,19 +4,27 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event - TCX</title>
+    <title>Event - {{ event.lien }}</title>
     <link rel="stylesheet" href="{% static 'css/event.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/etic.ico' %}" type="image/x-icon">
+    <script>
+        let r = document.querySelector(':root');
+        r.style.setProperty('--principale', '{{ event.couleur_principale }}');
+        r.style.setProperty('--secondaire', '{{ event.couleur_secondaire }}');
+    </script>
 </head>
 <body>
     <nav>
-        <h1><span id="check">Check</span><span id="in">In</span></h1>
-        <button>Quitter</button>
+        <h1 onclick="window.location.pathname = `{% url 'checkin:events' %}`;">
+            <span id="check">Check</span><span id="in">In</span>
+        </h1>
+        <button onclick="window.location.pathname = `{% url 'checkin:events' %}`;">Quitter</button>
     </nav>
     <main>
         <!-- welcome to -->
         <header>
             <h2 id="welcome">Welcome to</h2>
-            <h2 id="event-name">Training Camp X</h2>
+            <h2 id="event-name">{{ event.nom }}</h2>
         </header>
         <!-- recherche -->
         <div id="search-section">

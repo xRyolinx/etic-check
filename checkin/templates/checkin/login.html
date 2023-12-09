@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/etic.ico' %}" type="image/x-icon">
+    <script src="{% static 'js/login.js' %}"></script>
+    <title>Login</title>
+</head>
+<body>
+    <img id="bg" src="{% static 'img/bg-login.svg' %}" alt="">
+    <div id="container">
+        <div id="titles"> 
+              <h1>ETIC</h1>
+              <h2>Check<span>In</span></h2>
+        </div>
+
+        {% csrf_token %}
+
+        <div>
+            <div>
+                <label for="name">Your username</label>
+                <input type="text" id="username" name="username" autocomplete="off"
+                placeholder="Enter your username" required>
+            </div>
+
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="mdp" name="mdp" autocomplete="off"
+                placeholder="Enter your password" required>
+            </div>
+        </div>
+        
+        <div id="button-container">
+            <button id="login-button" type="submit">Login</button>
+        </div>
+
+        <p id="error"></p>
+
+    </div>
+</body>
+</html>

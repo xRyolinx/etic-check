@@ -10,3 +10,8 @@ class ParticipanInlineAdmin(admin.TabularInline):
 class EventAdmin(admin.ModelAdmin):
     list_display = ['nom',]
     inlines = [ParticipanInlineAdmin,]
+    
+    
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['username',]

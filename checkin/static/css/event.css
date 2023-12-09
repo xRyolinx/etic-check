@@ -20,6 +20,7 @@ nav h1 {
   margin: 0;
   font-size: 35px;
   font-weight: bold;
+  cursor: pointer;
 }
 nav h1 #check {
   color: var(--rouge);
@@ -52,7 +53,7 @@ header #event-name {
   margin: 0;
   font-size: 60px;
   font-weight: bold;
-  color: var(--orange);
+  color: var(--principale);
 }
 
 #search-section {
@@ -89,7 +90,7 @@ header #event-name {
   border-radius: 20px;
   font-size: 20px;
   font-weight: bold;
-  background-color: var(--orange);
+  background-color: var(--principale);
   color: var(--blanc);
   cursor: pointer;
 }
@@ -100,7 +101,7 @@ header #event-name {
 }
 #participants #titres {
   display: flex;
-  background-color: var(--orange);
+  background-color: var(--principale);
 }
 #participants #titres h3 {
   width: 33.3333333333%;
@@ -115,7 +116,7 @@ header #event-name {
 }
 
 #details {
-  background-color: var(--bleu);
+  background-color: var(--secondaire);
 }
 #details article {
   display: flex;
@@ -143,7 +144,7 @@ header #event-name {
   justify-content: center;
   border: 2px solid var(--blanc);
   background-color: var(--blanc);
-  color: var(--orange);
+  color: var(--principale);
   font-size: 20px;
   cursor: pointer;
   -webkit-user-select: none;
@@ -213,7 +214,7 @@ header #event-name {
   cursor: pointer;
   margin-top: 15px;
   margin-bottom: 10px;
-  background-color: var(--orange);
+  background-color: var(--principale);
   transition: 0.3s background-color;
 }
 

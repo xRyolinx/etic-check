@@ -32,6 +32,8 @@ nav {
         #in {
             color: var(--vert);
         }
+
+        cursor: pointer;
     }
 
     button {
@@ -69,7 +71,7 @@ header {
         margin: 0;
         font-size: 60px;
         font-weight: bold;
-        color: var(--orange);
+        color: var(--principale);
     }
 
 }
@@ -119,7 +121,7 @@ header {
         font-size: 20px;
         font-weight: bold;
 
-        background-color: var(--orange);
+        background-color: var(--principale);
         color: var(--blanc);
 
         cursor: pointer;
@@ -134,7 +136,7 @@ header {
 
     #titres {
         display: flex;
-        background-color: var(--orange);
+        background-color: var(--principale);
 
         h3 {
             width: calc(100% / 3);
@@ -154,7 +156,7 @@ header {
 }
 
 #details {
-    background-color: var(--bleu);
+    background-color: var(--secondaire);
 
     article {
         display: flex;
@@ -188,7 +190,7 @@ header {
                 border: 2px solid var(--blanc);
                 
                 background-color: var(--blanc);
-                color: var(--orange);
+                color: var(--principale);
                 font-size: 20px;
 
                 cursor: pointer;
@@ -208,6 +210,9 @@ header {
     --noir: #323232;
     --orange: #F26414;
     --bleu: #413492;
+
+    // --principale: var(--orange);
+    // --secondaire: var(--bleu);
 }
 
 
@@ -268,7 +273,7 @@ header {
     cursor: pointer; 
     margin-top: 15px; 
     margin-bottom: 10px; 
-    background-color: var(--orange); 
+    background-color: var(--principale); 
     transition: 0.3s background-color; 
 }
   
