@@ -13,7 +13,8 @@ urlpatterns = [
     
     path('events/', views.events_page, name='events'),
     
-    path('events/add', views.add_event, name='add'),
+    path('events/add/', views.add_event, name='add'),
+    path('events/edit/<str:lien>', views.edit_event, name='edit'),
     
     path('events/<str:lien>/', views.event_page, name='event'),
     path('events/api/<str:lien>/', views.event_api, name='event_api'),

@@ -127,6 +127,56 @@ def add_event(request):
             "lien": path,
         })
 
+# edit evenement
+@login_required
+def edit_event(request, lien):
+    # get event from db
+    event = Event.objects.all().filter(lien=lien)
+    
+    # not found
+    if not event:
+        return redirect(reverse('checkin:events'))
+        
+    # get event
+    event = event[0]        
+    
+    # get to the page
+    if request.method == 'GET':
+        return render(request, 'checkin/edit.html', {
+            "event": event,
+        })
+    
+    # add event
+    elif request.method == 'POST':
+        # get data
+        nom = request.POST.get('nom')
+        new_lien = request.POST.get('lien')
+        cp = request.POST.get('cp')
+        cs = request.POST.get('cs')
+        
+        # check data
+        if ((not nom) or (not new_lien) or (not cp) or (not cs)):
+            return JsonResponse({
+                "status" : "ERROR"
+            })
+            
+        # edit event
+        event.nom = nom
+        event.lien = new_lien
+        event.couleur_principale = cp
+        event.couleur_secondaire = cs
+        
+        # save event
+        event.save()
+              
+        # end
+        path = reverse('checkin:event', kwargs={'lien':new_lien})
+        print(path)
+        return JsonResponse({
+            "status" : "OK",
+            "lien": path,
+        })
+
 
 # page d'event
 @login_required
