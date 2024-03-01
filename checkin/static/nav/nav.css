@@ -1,0 +1,206 @@
+/* Fonts */
+
+@font-face {
+    font-family: PoppinsMd;
+    src: url(/static/fonts/Poppins/Poppins-Medium.ttf);
+}
+
+@font-face {
+    font-family: Pacifico;
+    src: url(/static/fonts/Pacifico/Pacifico-Regular.ttf);
+}
+
+@font-face {
+    font-family: Nobia-regular;
+    src: url(/static/fonts/Nobia/Nobia\ Regular.ttf);
+}
+
+@font-face {
+    font-family: Montserrat-Light;
+    src: url(/static/fonts/Montserrat/static/Montserrat-Light.ttf);
+}
+
+@font-face {
+    font-family: Multi;
+    src: url(/static/fonts/Multi/MultiText-Regular.otf);
+}
+
+/* Var */
+:root {
+    --white: #FFFFFF;
+    --black: #4d504a;
+
+    --Rose_Gold: #B76E79;
+    --Ivory_White: #FDFDFD;
+    --Dusty_Rose: #D4A6B1;
+    --Charcoal_Gray: #333333;
+
+    --grey_border: #e1e1e1;
+    --grey: #84847C;
+
+    --beige-bg: #f4f0ed;
+}
+
+
+
+/* Nav */
+nav {
+    position: relative;
+    height:130px;
+    min-height: 45px;
+    padding: 0 3rem 0 2rem;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    
+    font-family: Multi, sans-serif;
+    background-color: var(--Ivory_White);
+
+    z-index: 900;
+}
+/* Mobile */
+@media (max-width: 992px) {
+    nav {
+        height: 70px;
+        justify-content: space-between;
+        padding: 0 1rem 0 1rem;
+    }
+}
+
+
+/* Suite de navbar */
+#nav_add {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    height: auto;
+    z-index: 800;
+}
+
+/* Mobile */
+@media (max-width: 992px) {
+    #nav_add {
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0 0 0 1.1rem;
+        width: 100%;
+        min-height: 180px;
+        background-color: var(--Ivory_White);
+        border-top: 1px solid var(--grey);
+        position: absolute;
+        margin-top: -300px;
+        transition: margin 0.6s;
+    }
+}
+
+
+/* Elements de la nav bar */
+#nav_marque {
+    height: 60%;
+    max-height: 60px;
+    width: 20%;
+    font-family: Nobia-regular;
+    font-size: 1.5rem;
+    color: var(--black);
+    text-decoration: none;
+    text-align: start;
+}
+
+#nav_marque img {
+    height: 100%;
+}
+
+.nav_el {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+
+    text-transform: uppercase;
+    text-decoration: none;
+
+    color: var(--black);
+
+    padding: 5px 0;
+
+    border-bottom: 1.5px transparent solid;
+
+    transition: border 0.3s;
+
+}
+.nav_el:hover {
+    border-bottom: 1.5px var(--black) solid;
+    color: var(--black);
+}
+.nav_el:hover a {
+    color: inherit;
+}
+/* Mobile */
+@media (max-width: 992px) {
+    .nav_el, .nav_el:hover {
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        border: none;
+    }
+}
+
+/* PDP */
+.nav_pdp {
+    width: 38px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+
+    border-radius: 100%;
+
+    cursor: pointer;
+}
+
+/* social */
+#nav-social {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: 20%;
+}
+
+.nav-separator  {
+    width: 20px;
+    margin: 0 10px;
+    border-top: 1px solid var(--grey_border);
+    border-bottom: 1px solid var(--grey_border);
+}
+
+#nav-social svg {
+    cursor: pointer;
+    height: 18px;
+}
+
+@media (max-width: 992px) {
+    #nav-social {
+        display: none;
+    }
+}
+
+
+
+/* Bouton */
+#nav_button {
+    display: none;
+    border: none;
+    padding: 0;
+    background-color: inherit;
+}
+#nav_button img {
+    width:20px;
+    border: none;
+}
+@media (max-width: 992px) {
+    #nav_button {
+        display: block;
+    }
+}

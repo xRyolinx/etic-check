@@ -224,8 +224,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         articles.forEach(article => {
             let span = article.children[2].children[0];
-            if (article.children[0].innerText == nom.innerText
-                && article.children[1].innerText == prenom.innerText)
+            if (article.children[0].innerText.toUpperCase() == nom.innerText.toUpperCase()
+                && article.children[1].innerText.toUpperCase() == prenom.innerText.toUpperCase())
             {
                 found = true;
 

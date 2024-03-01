@@ -1,0 +1,195 @@
+{% extends 'landing/layout.html' %}
+
+
+<!-- head -->
+{% block head %}
+
+    {% load static %}
+
+    <!-- title -->
+    <title>Makeup By Yam - Home</title>
+
+    <!-- page files -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="{% static 'js/home.js' %}"></script>
+
+{% endblock %}
+
+
+<!-- before nav -->
+{% block before_nav %}
+
+    <!-- bg -->
+    <div id="bg-home">
+        {% for element in carousel %}
+            <img src="{% static element.image %}">
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+
+<!-- body -->
+{% block body %}
+
+    <!-- content -->
+    <main>
+        <!-- carousel -->
+        <header class="carousel">
+            <!-- container to center mob view -->
+            <div id="div-center-mob"></div>
+            <!-- precedent -->
+            <img src="{% static 'img/go_back.png' %}" id="precedent">
+            <!-- titre -->
+            {% for element in carousel %}
+                {% if element.order == 1 %}
+                    <h1 class="title" style="display: block; opacity: 1;">{{ element.text }}</h1>
+                {% else %}
+                    <h1 class="title">{{ element.text }}</h1>
+                {% endif %}
+            {% endfor %}
+
+            <!-- suivant -->
+            <img src="{% static 'img/go_forth.png' %}" id="suivant">
+
+            <div id="scroll-buttons">
+                <div class="scroll-button" id="1" style="background-color: var(--Ivory_White);"></div>
+                <div class="scroll-button" id="2"></div>
+                <div class="scroll-button" id="3"></div>
+            </div>
+        </header>
+
+        <!-- about -->
+        <div id="about">
+        </div>
+
+        <!-- services -->
+        <div id="services-container">
+            <!-- services -->
+            <div id="services">
+                <!-- part left aligned -->
+                <div class="services-part mb-100_mb">
+                    <!-- title -->
+                    <div class="services-title ml-auto mb-20" style="border-top: solid 3px var(--grey);">
+                        <h1>Nos catégories de services</h1>
+                    </div>
+
+                    {% for categorie in left.categories %}
+                        <!-- service left aligned -->
+                        {% if categorie.order == 1 %}
+                            <article class="service mt-0">
+                        {% elif categorie.order == left.length %}
+                            <article class="service mb-0">
+                        {% else %}
+                            <article class="service">
+                        {% endif %}
+                            <div class="service-title-container">
+                                <div class="service-title">
+                                    <div class="service-title-image">
+                                        <img src="{% static categorie.image %}" alt="">
+                                    </div>
+                                    <!-- <p>MAKE UP</p> -->
+                                </div>
+                            </div>
+                            <div class="service-info">
+                                <img src="{% static categorie.background_image %}" alt="">
+                                <div class="service-info-text">
+                                    <h3>{{ categorie.nom }}</h3>
+                                    <p>
+                                        {{ categorie.description | safe }}
+                                    </p>
+                                </div>
+                                <div class="service-info-button" id="{{ categorie.id }}"
+                                onclick="window.location.pathname = '/categories/' + this.id">
+                                    <p>PLUS D'INFO</p>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+
+                <!-- part right aligned -->
+                <div class="services-part">
+
+                    {% for categorie in right.categories %}
+                        <!-- service left aligned -->
+                        {% if categorie.order == 1 %}
+                            <article class="service mt-0">
+                        {% elif categorie.order == right.length %}
+                            <article class="service mb-0">
+                        {% else %}
+                            <article class="service">
+                        {% endif %}
+                            <div class="service-title-container" style="left: auto; right: 0;">
+                                <div class="service-title">
+                                    <div class="service-title-image">
+                                        <img src="{% static categorie.image %}" alt="">
+                                    </div>
+                                    <!-- <p>MAKE UP</p> -->
+                                </div>
+                            </div>
+                            <div class="service-info" style="margin-left: 0; margin-right: auto;">
+                                <img src="{% static categorie.background_image %}" alt="">
+                                <div class="service-info-text">
+                                    <h3>{{ categorie.nom }}</h3>
+                                    <p>
+                                        {{ categorie.description | safe }}
+                                    </p>
+                                </div>
+                                <div class="service-info-button" id="{{ categorie.id }}"
+                                onclick="window.location.pathname = '/categories/' + this.id">
+                                    <p>PLUS D'INFO</p>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+
+                    <!-- title -->
+                    <div class="services-title mr-auto mt-20" style="border-bottom: solid 3px var(--grey);">
+                        <h1>Prenez rendez-vous des maintenant!</h1>
+                    </div>
+                </div>
+
+                
+            </div>
+            <!-- bg -->
+            <!-- <div id="services-bg"></div> -->
+        </div>
+
+        <!-- testimonials -->
+        <div id="testimonials-big-container">
+            <div id="testimonials-container">
+                <!-- title -->
+                <div id="testimonials-title">
+                    <h1>TESTIMONIALS</h1>
+                </div>
+                <!-- temoignanges -->
+                <div id="testimonials">
+                    <div id="testimonials-total">
+                        {% for testimonial in testimonials %}
+                            <div class="testimonial" style="opacity: 1;">
+                                <!-- content -->
+                                <div class="testimonial-content">
+                                    <q>
+                                        {{ testimonial.message | safe }}
+                                    </q>
+                                </div>
+                                <div class="testimonial-name">
+                                    <i>~ {{ testimonial.nom }} ~</i>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- buttons -->
+                <div id="testimonials-buttons" style="z-index: 1000; position: relative;">
+                    <p id="test-but-pre">&#8592;</p>
+                    <p id="test-but-suiv">&#8594;</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

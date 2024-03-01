@@ -22,6 +22,23 @@ function sleep(ms) {
 
 // start
 document.addEventListener('DOMContentLoaded', () => {
+    // enter sur username
+    document.querySelector('#username').addEventListener('keyup', (e) => {
+        if (e.key == 'Enter')
+        {
+            document.querySelector('#mdp').focus();
+        }
+    });
+
+    // enter sur mdp
+    document.querySelector('#mdp').addEventListener('keyup', (e) => {
+        if (e.key == 'Enter')
+        {
+            document.querySelector('#login-button').click();
+        }
+    });
+    
+    // login button
     document.querySelector('#login-button').addEventListener('click', async function () {
         // error
         let error = document.querySelector('#error');

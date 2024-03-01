@@ -1,22 +1,14 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from . import views
 
-app_name = 'checkin'
-
+app_name = 'landing'
 urlpatterns = [
     path('', views.home, name='home'),
-    
-    path('login/', views.login_page, name='login'),
-    path('logout/', views.logout_page, name='logout'),
-    
-    path('events/', views.events_page, name='events'),
-    
-    path('events/add/', views.add_event, name='add'),
-    path('events/edit/<str:lien>', views.edit_event, name='edit'),
-    
-    path('events/<str:lien>/', views.event_page, name='event'),
-    path('events/api/<str:lien>/', views.event_api, name='event_api'),
-    path('events/api/presence/<str:lien>/', views.presence, name='event_presence'),
+    path('services', views.services, name='services'),
+    path('about', views.about, name='about'),
+    path('contact', views.contact, name='contact'),
+    path('rdv', views.rdv, name='rdv'),
+    path('rdv/<int:id>', views.rdv, name='rdv_selected'),
+    path('categories/<int:id>', views.categories, name='categories'),
 ]

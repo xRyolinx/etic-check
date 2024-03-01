@@ -1,0 +1,319 @@
+/* variables */
+:root {
+  --white: #FFFFFF;
+  --black: #4d504a;
+  --Rose_Gold: #B76E79;
+  --Ivory_White: #FDFDFD;
+  --Dusty_Rose: #D4A6B1;
+  --Charcoal_Gray: #333333;
+  --grey_border: #e1e1e1;
+  --grey: #84847C;
+  --beige-bg: #f4f0ed;
+  --padding-glob: 40px;
+}
+
+/* Fonts */
+@font-face {
+  font-family: Montserrat-Light;
+  src: url(/static/fonts/Montserrat/static/Montserrat-Light.ttf);
+}
+@font-face {
+  font-family: PlayfairDisplay-Medium;
+  src: url(/static/fonts/Playfair_Display/static/PlayfairDisplay-Medium.ttf);
+}
+@font-face {
+  font-family: CormorantGaramond-Medium;
+  src: url(/static/fonts/Cormorant_Garamond/CormorantGaramond-Medium.ttf);
+}
+@font-face {
+  font-family: Multi;
+  src: url(/static/fonts/Multi/MultiText-Regular.otf);
+}
+/* style */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  width: 100%;
+  background-color: var(--Ivory_White);
+}
+
+header {
+  position: relative;
+  margin: 0 10px;
+  width: calc(100% - 20px);
+  height: 500px;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+}
+header #header-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  z-index: -1;
+}
+header #header-bg img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100%;
+  width: 100%;
+  opacity: 0.4;
+}
+header #header-text {
+  padding: 20px 100px;
+  color: var(--Ivory_White);
+  z-index: 1;
+}
+header #header-text h1 {
+  font-size: 35px;
+  font-weight: normal;
+}
+header #header-text h1 span {
+  font-weight: bold;
+}
+header #header-text p {
+  font-style: italic;
+}
+@media (max-width: 760px) {
+  header #header-text {
+    padding-right: 20px;
+    padding-left: 20px;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+.service {
+  width: 100%;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.service .header-title {
+  width: 50%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.service .header-title h1 {
+  color: var(--black);
+  font-family: CormorantGaramond-Medium, serif;
+  font-weight: 400;
+  font-size: 35px;
+  letter-spacing: 0.2em;
+  word-break: break-word;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.service .header-info {
+  flex-grow: 1;
+  padding: 0 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.service .service-img {
+  width: 50%;
+}
+.service .service-img img {
+  width: 100%;
+  aspect-ratio: 3/2;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 15px 5px;
+}
+.service .service-text {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.service .service-text p {
+  font-size: 15px;
+  font-family: Montserrat-Light;
+  color: var(--grey);
+  line-height: 25px;
+}
+
+.drop-down {
+  width: 100%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drop-down-title-container {
+  margin: 0 auto;
+  padding: 0 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.drop-down-title-container .drop-down-svg-container svg {
+  margin-top: 6px;
+  height: 12px;
+  transform: rotate(180deg);
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+.drop-down-title-container .drop-down-title {
+  margin-right: 20px;
+}
+.drop-down-title-container .drop-down-title h2 {
+  font-size: 35px;
+  font-family: CormorantGaramond-Medium;
+  font-weight: 500;
+  color: var(--black);
+  margin: 0;
+}
+
+.drop-down-content {
+  z-index: 10;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+.drop-down-content .drop-down-info {
+  position: relative;
+  z-index: 12;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.drop-down-content .drop-down-info p, .drop-down-content .drop-down-info span, .drop-down-content .drop-down-info em {
+  font-family: Montserrat-Light;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--grey);
+}
+.drop-down-content .drop-down-info span {
+  width: 100px;
+  font-weight: 600;
+  text-align: end;
+  margin-left: 20px;
+}
+.drop-down-content .drop-down-info em {
+  display: block;
+  font-size: 15px;
+  font-weight: lighter;
+  padding-top: 10px;
+}
+.drop-down-content .drop-down-info:hover {
+  background-color: #ECECEC;
+  cursor: pointer;
+}
+.drop-down-content .categorie {
+  background-color: transparent !important;
+  cursor: auto !important;
+}
+
+.beige {
+  background-color: var(--beige-bg);
+}
+.beige .header-title {
+  padding-left: 50px;
+}
+.beige p, .beige span {
+  color: var(--black) !important;
+}
+.beige .drop-down-content .drop-down-info:hover {
+  background-color: #e3dfdc;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.pl-50 {
+  padding-left: 50px;
+}
+
+.pr-50 {
+  padding-right: 50px;
+}
+
+.mb {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  #content {
+    padding-top: 10px;
+    border-top: solid 1px var(--grey_border);
+  }
+  header {
+    margin-bottom: 50px;
+  }
+  .mb {
+    display: inline-block;
+    padding-left: 0 !important;
+  }
+  .lg {
+    display: none;
+  }
+  .pl-50, .pr-50 {
+    padding: 0;
+  }
+  .ml-auto, .mr-auto {
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .service .header-title {
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  .service .header-title h1 {
+    text-align: center;
+  }
+  .service .header-info {
+    flex-direction: column;
+  }
+  .service .header-info .service-img {
+    width: 100%;
+  }
+  .service .header-info .service-text {
+    width: 100%;
+  }
+  .service .header-info .service-img img {
+    aspect-ratio: 1.5;
+  }
+  .service .header-info-reversed {
+    flex-direction: column-reverse;
+  }
+}
+@media (max-width: 600px) {
+  .service .header-info {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .drop-down-content .drop-down-info {
+    padding: 20px 10px;
+  }
+}
+@media (max-width: 320px) {
+  .service .header-title h1 {
+    font-size: 30px;
+  }
+}/*# sourceMappingURL=services.css.map */

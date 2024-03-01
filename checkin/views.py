@@ -1,271 +1,213 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
-
+from django.shortcuts import render
 from .models import *
+
 from django.http import JsonResponse
 
-from openpyxl import load_workbook
-
-from .helpers import *
-# from django.contrib.auth.hashers import make_password
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 
-# login
-def login_page(request):
-    # go to login page
-    if request.method == 'GET':
-        # if already logged in
-        if 'login' in request.session:
-            return redirect(reverse("checkin:events"))
-        # login page
-        return render(request, 'checkin/login.html')
+
+
+# Create your views here.
+def home(request):
+    # ---------------get the person----------
+    about = About.objects.all().order_by('order')
+    about = about[0]
+    
+    # ------------Carousel--------------
+    carousel = HomeCarousel.objects.all().order_by('order')[:3]
+    for element in carousel:
+        element.image = 'img/' + element.image
+    
+    # ---------categories--------------
+    categories_all = Categorie.objects.all().order_by('order_on_home')
+    for categorie in categories_all:
+        categorie.service = categorie.services.all()
+        categorie.image = 'img/' + categorie.image
+        categorie.background_image = 'img/' + categorie.background_image
+        
+    # divide into 2
+    length = len(categories_all)
+    len1 = round(length / 2)
+    
+    class categorie_class():
+        def __init__(self):
+            self.categories = []
+            self.length = 0
             
-    # login api
+        def __str__(self):
+            return (f'categories : {self.categories}, \nlength : {self.length}')
+    
+    # left
+    left = categorie_class()
+    
+    for i in range(len1):
+        left.categories.append(categories_all[i])
+        left.categories[i].order = i + 1
+        
+    left.length = len(left.categories)
+    
+    
+    # right
+    right = categorie_class()
+    
+    for i in range(len1, length):
+        j = i - len1
+        right.categories.append(categories_all[i])
+        right.categories[j].order = j + 1
+        
+    right.length = len(right.categories)
+    
+    
+    
+    # ------------testimonials-----------
+    testimonials = Temoignage.objects.all().order_by('order')[:3]
+    
+    # -----------end------------
+    return render(request, 'landing/home.html', {
+        'carousel' : carousel,
+        'left': left,
+        'right': right,
+        'testimonials' : testimonials,
+        'about' : about,
+        'home' : True
+    })
+
+
+def categories(request, id):
+    # get the person
+    about = About.objects.all().order_by('order')
+    about = about[0]
+    
+    # categories
+    categorie = Categorie.objects.get(id=id)
+    categorie.image = 'img/' + categorie.image
+    categorie.service = categorie.services.all()
+    
+    return render(request, 'landing/categories.html', {
+        'about' : about,
+        "categorie" : categorie
+    })
+
+
+def services(request):
+    # get the person
+    about = About.objects.all().order_by('order')
+    about = about[0]
+    
+    # maquillage
+    categories_maquillage = Categorie.objects.exclude(nom="Atelier auto-maquillage").all()
+    for categorie in categories_maquillage:
+        categorie.service = categorie.services.all()
+    
+    # atelier
+    categories_atelier = Categorie.objects.get(nom="Atelier auto-maquillage")
+    categories_atelier.service = categories_atelier.services.all()
+    
+    return render(request, 'landing/services.html', {
+        "categories_maquillage" : categories_maquillage,
+        "categories_atelier" : categories_atelier,
+        'about' : about
+    })
+
+
+def about(request):
+    # get the person
+    about = About.objects.all().order_by('order')
+    about = about[0]
+    
+    about.para = about.paragraphes.all().order_by('order')
+    about.pourquoi_para = about.pourquoi_paragraphes.all().order_by('order')
+    
+    about.image = 'img/' + about.image
+    about.pourquoi_moi_image = 'img/' + about.pourquoi_moi_image
+    
+    
+    return render(request, 'landing/about.html', {
+        "about" : about
+    })
+
+
+def contact(request):
+    # get to page
+    if request.method == 'GET':
+        # get the person
+        about = About.objects.all().order_by('order')
+        about = about[0]
+        
+        return render(request, "landing/contact.html", {
+            'about' : about
+        })
+    
+    # submit form
     if request.method == 'POST':
         # get data
-        username = request.POST.get('username')
-        mdp = request.POST.get('mdp')
-        # encrypt
-        # mdp = make_password(mdp)
+        nom = request.POST.get('nom')
+        email = request.POST.get('email')
         
-        # check if exists
-        user = User.objects.all().filter(username=username, mdp=mdp)
-        print(user)
-        # true
-        if user:
-            request.session['login'] = True
-            return JsonResponse({
-                'login' : 'Success',
-            })
-        # error
-        else:
-            return JsonResponse({
-                'login' : 'Failed',
-            })
-  
-# logout
-@login_required
-def logout_page(request):
-    del request.session['login']
-    return redirect(reverse('checkin:login'))
-
-# home redirect to events
-@login_required
-def home(request):
-    return redirect(reverse('checkin:events'))
-
-# events
-@login_required
-def events_page(request):
-    events = Event.objects.all()
-    return render(request, 'checkin/events.html', {
-        'events': events,
-    })
+        sujet = request.POST.get('sujet')
+        message = request.POST.get('message')
+        
+        date_heure_envoi = datetime.now(tz=ZoneInfo("Europe/Paris")).strftime("%d/%m/%Y - %H:%M:%S")
+        
+        # add to db
+        added = Contact(nom=nom, email=email, sujet=sujet, message=message, date_heure_envoi=date_heure_envoi)
+        added.save()
+        
+        # end
+        return JsonResponse({
+            "status" : "OK"
+        })
 
 
-# add evenement
-@login_required
-def add_event(request):
-    # get to the page
+def rdv(request, id=None):
+    # get to page
     if request.method == 'GET':
-        return render(request, 'checkin/add.html')
+        # get the person
+        about = About.objects.all().order_by('order')
+        about = about[0]
+        
+        # get categories
+        categories = Categorie.objects.all()
+        for categorie in categories:
+            categorie.service = categorie.services.all()
+            
+        # select with id
+        selected = None
+        if id:
+            selected = Service.objects.get(id=id)
+        
+        return render(request, "landing/rdv.html", {
+            "categories" : categories,
+            "selected" : selected,
+            'about' : about
+        })
     
-    # add event
-    elif request.method == 'POST':
+    # submit form
+    if request.method == 'POST':
         # get data
         nom = request.POST.get('nom')
-        lien = request.POST.get('lien')
-        cp = request.POST.get('cp')
-        cs = request.POST.get('cs')
-        excel = request.FILES.get('excel')
+        prenom = request.POST.get('prenom')
         
-        # check data
-        if ((not nom) or (not lien) or (not cp) or (not cs) or (not excel)):
-            return JsonResponse({
-                "status" : "ERROR"
-            })
+        email = request.POST.get('email')
+        numero = request.POST.get('numero')
+        
+        date_rdv = request.POST.get('date_rdv')
+        service = request.POST.get('service')
+        
+        message = request.POST.get('message')
+        if not message:
+            message = ''
             
-        # create event
-        event = Event(nom=nom, lien=lien, couleur_principale=cp, couleur_secondaire=cs)
-        event.save()
-            
-        # convert excel to db
-        wb = load_workbook(excel)
-        ws = wb.active
-        for row in ws.iter_rows(min_row=2):
-            # get data fom excel
-            name = row[0].value
-            prenom = row[1].value
-            
-            # error in excel
-            if ((not name) or (not prenom)):
-                # if at the end
-                if ((not name) and (not prenom)):
-                    break
-                else:
-                    # delete event
-                    event.delete()
-                    
-                    return JsonResponse({
-                        "status" : "ERROR"
-                    })
-            
-            # arranger la capitalisation
-            name = name.lower().capitalize()
-            prenom = prenom.lower().capitalize()
-                
-            # inscrit l'eleve
-            particip = Participant(nom=name, prenom=prenom, event=event)
-            particip.save()
-            
-            
+        date_heure_envoi = datetime.now(tz=ZoneInfo("Europe/Paris")).strftime("%d/%m/%Y - %H:%M:%S")
+        
+        # add to db
+        added = Rendez_vous(nom=nom, prenom=prenom, email=email, numero=numero, date_rdv=date_rdv, service=service,
+                            message=message, date_heure_envoi=date_heure_envoi)
+        added.save()
+        
         # end
-        path = reverse('checkin:event', kwargs={'lien':lien})
-        print(path)
         return JsonResponse({
-            "status" : "OK",
-            "lien": path,
+            "status" : "OK"
         })
-
-# edit evenement
-@login_required
-def edit_event(request, lien):
-    # get event from db
-    event = Event.objects.all().filter(lien=lien)
-    
-    # not found
-    if not event:
-        return redirect(reverse('checkin:events'))
-        
-    # get event
-    event = event[0]        
-    
-    # get to the page
-    if request.method == 'GET':
-        return render(request, 'checkin/edit.html', {
-            "event": event,
-        })
-    
-    # add event
-    elif request.method == 'POST':
-        # get data
-        nom = request.POST.get('nom')
-        new_lien = request.POST.get('lien')
-        cp = request.POST.get('cp')
-        cs = request.POST.get('cs')
-        
-        # check data
-        if ((not nom) or (not new_lien) or (not cp) or (not cs)):
-            return JsonResponse({
-                "status" : "ERROR"
-            })
-            
-        # edit event
-        event.nom = nom
-        event.lien = new_lien
-        event.couleur_principale = cp
-        event.couleur_secondaire = cs
-        
-        # save event
-        event.save()
-              
-        # end
-        path = reverse('checkin:event', kwargs={'lien':new_lien})
-        print(path)
-        return JsonResponse({
-            "status" : "OK",
-            "lien": path,
-        })
-
-
-# page d'event
-@login_required
-def event_page(request, lien):
-    event = Event.objects.all().filter(lien=lien)
-    if not event:
-        return redirect(reverse('checkin:events'))
-    
-    event = event[0]
-    event.lien = event.lien.upper()
-    return render(request, 'checkin/event.html', {
-        'event': event,
-    })
-
-# api participants des events
-@login_required
-def event_api(request, lien):
-    # if not post
-    if request.method != 'POST':
-        return JsonResponse({
-            'error' : 'Not found',
-        })
-        
-    # get event
-    event = Event.objects.all().filter(lien=lien)
-    
-    # not found
-    if not event:
-        return JsonResponse({
-            'error' : 'Event does not exist',
-        })
-        
-    # get participants
-    event = event[0]
-    participants_querie = event.participants.all()
-    participants = []
-    
-    # to json
-    for participant in participants_querie:
-        new = {
-            'id': 'p' + str(participant.id),
-            'nom': participant.nom,
-            'prenom': participant.prenom,
-            'present': participant.present,
-        }
-        participants.append(new)
-    
-    # send 
-    return JsonResponse({
-        'participants': participants,
-    })
-    
-# changer presence des participants 
-@login_required
-def presence(request, lien):
-    # if not post
-    if request.method != 'POST':
-        return JsonResponse({
-            'error' : 'Not found',
-        })
-        
-    # get event
-    event = Event.objects.all().filter(lien=lien)
-    
-    # not found
-    if not event:
-        return JsonResponse({
-            'error' : 'Event does not exist',
-        })
-    
-    # get participant
-    event = event[0]
-    id = request.POST.get('id')
-    participant = event.participants.all().filter(id=id)
-    # not found
-    if not participant:
-        return JsonResponse({
-            'error' : 'Participant does not exist',
-        })
-    # change presence
-    participant = participant[0]
-    if participant.present:
-        participant.present = False
-    else:
-        participant.present = True
-    # save
-    participant.save()
-    
-    # return
-    return JsonResponse({
-        'result' : 'success',
-    })

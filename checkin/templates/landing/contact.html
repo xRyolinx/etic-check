@@ -1,0 +1,116 @@
+{% extends 'landing/layout.html' %}
+
+
+<!-- head -->
+{% block head %}
+
+    {% load static %}
+
+    <!-- title -->
+    <title>Contact</title>
+
+    <!-- page files --> 
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <script src="{% static 'js/contact.js' %}"></script>
+
+{% endblock %}
+
+<!-- body -->
+{% block body %}
+
+    <!-- content -->
+    <main>
+        <div id="contact">
+            <!-- infos -->
+            <div id="informations">
+                <div class="info" id="info-mob">
+                    <p class="header">CALL <span id="tiret">-</span> EMAIL</p>
+                    <p style="cursor: pointer;" onclick="window.location.href='tel:{{ about.numero }}';">
+                        {{ about.numero }}
+                    </p>
+                    <p style="cursor: pointer;" onclick="window.location.href='mailto:{{ about.email }}';">
+                        {{ about.email }}
+                    </p>
+                </div>
+
+                <div class="info">
+                    <p class="header">CALL US</p>
+                    <p style="cursor: pointer;" onclick="window.location.href='tel:{{ about.numero }}';">
+                        {{ about.numero }}
+                    </p>
+                </div>
+
+                <div id="or">
+                    <p>OR</p>
+                </div>
+
+                <div class="info">
+                    <p class="header">EMAIL US</p>
+                    <p style="cursor: pointer;" onclick="window.location.href='mailto:{{ about.email }}';">
+                        {{ about.email }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- form -->   
+            <div id="form">
+                <form action="{% url 'landing:contact' %}" method="post" class="contact1-form validate-form">
+                    {% csrf_token %}
+                    <div id="titre">
+                        <h1>CONTACT</h1>
+                        <p class="intro">Vous posez-vous des questions ou
+                            voulez-vous nous faire savoir quelque chose&nbsp;?</p>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                        <input autocomplete="off" class="input1" type="text" name="nom" placeholder="Nom*">
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        <input autocomplete="off" class="input1" type="email" name="email" placeholder="Email*">
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Subject is required">
+                        <input autocomplete="off" class="input1" type="text" name="sujet" placeholder="Sujet*">
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input" data-validate = "Message is required">
+                        <textarea autocomplete="off" class="input1" name="message" placeholder="Message*"></textarea>
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="container-contact1-form-btn">
+                        <button class="contact1-form-btn">
+                            <span>
+                                Envoyer
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <p id="status"></p>
+                </form>
+            </div>
+
+            <!-- follow us -->
+            <div id="follow">
+                <p class="header">FOLLOW US</p>
+                <p>
+                    <span class="social_network_name">Facebook : </span>
+                    <span onclick="window.open('{{ about.lien_facebook }}', '_blank');" style="cursor: pointer;">
+                        {{ about.nom_facebook }}
+                    </span>
+                </p>
+                <p onclick="window.open('{{ about.lien_insta }}', '_blank');">
+                    <span class="social_network_name">Instagram : </span>
+                    <span onclick="window.open('{{ about.lien_insta }}', '_blank');" style="cursor: pointer;">
+                        {{ about.nom_insta }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </main>
+                
+{% endblock %}
